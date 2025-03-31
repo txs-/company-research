@@ -1,0 +1,55 @@
+Chat History: Company Research Application Development
+
+1. Initial Deployment and Configuration
+- User sought assistance with deploying frontend application to Google Cloud Platform (GCP)
+- Created and configured files like cloudbuild.yaml and vite.config.ts
+- Successfully deployed the application
+
+2. Production Issues
+- Encountered blank white web page in production
+- Suggested debugging steps:
+  * Check browser console for errors
+  * Verify contents of Cloud Storage bucket
+
+3. API Response Presentation
+- Expressed need to improve presentation of API call responses
+- Responses were returning raw markdown
+- Recommended using react-markdown for better display
+- Guided through installation process
+
+4. Network Error Resolution
+- Reported "network error" when clicking "Research Company" button
+- Investigated and fixed issues:
+  * Updated Cloud Function endpoint URLs in frontend config
+  * Fixed CORS configuration
+  * Added proper error handling and logging
+  * Set up Vite proxy for development
+
+5. Development Environment Setup
+- Fixed Node.js version compatibility issues
+- Installed and configured dependencies:
+  * Node.js v20.19.0
+  * Vite v4.5.2
+  * React and other frontend dependencies
+
+6. Deployment Status
+- Frontend deployed to: https://storage.googleapis.com/company-research-frontend-2024/index.html
+- Cloud Functions deployed with proper CORS configuration
+- API endpoints:
+  * Company Research: https://us-central1-company-research-2024.cloudfunctions.net/company-research
+  * Person Research: https://us-central1-company-research-2024.cloudfunctions.net/person-research
+
+7. Current Issues
+- Vite development server has regular expression compatibility issue
+- Markdown rendering needs improvement in production
+
+8. Next Steps
+- Fix Vite development server issue
+- Continue debugging markdown rendering
+- Make any additional improvements as needed
+
+Technical Details:
+- Frontend: React with TypeScript, Material-UI, react-markdown
+- Backend: Google Cloud Functions with Python
+- API: Gemini 1.5 Pro model for research generation
+- Deployment: Google Cloud Storage for frontend, Cloud Functions for backend 
