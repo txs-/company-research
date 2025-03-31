@@ -1,10 +1,18 @@
 # Company Research Application
 
-A full-stack application for company and person research using Google's Gemini AI model.
+A full-stack application for company, person, and market research using Google's Gemini AI model.
+
+## Features
+
+- Company Research: Deep analysis of companies using AI
+- Person Research: Comprehensive research on individuals within companies
+- Market Research: In-depth analysis of market trends and opportunities
+- Modern UI with split-view layout
+- Real-time research results display
 
 ## Frontend
 
-A React application built with TypeScript and Material-UI that provides a user interface for company and person research.
+A React application built with TypeScript and Material-UI that provides a user interface for company, person, and market research.
 
 ### Setup and Development
 
@@ -31,7 +39,7 @@ gsutil -m cp -r dist/* gs://company-research-frontend-2024/
 
 ## Backend (Cloud Functions)
 
-Google Cloud Functions that provide company and person research using Google's Gemini AI model.
+Google Cloud Functions that provide company, person, and market research using Google's Gemini AI model.
 
 ### Setup and Deployment
 
@@ -49,13 +57,25 @@ gcloud functions deploy company-research \
   --set-env-vars GOOGLE_API_KEY=your_api_key_here
 ```
 
-3. Deploy the function:
+3. Deploy the functions:
 ```bash
 gcloud functions deploy company-research \
   --runtime python39 \
   --trigger-http \
   --allow-unauthenticated \
   --entry-point company_research
+
+gcloud functions deploy person-research \
+  --runtime python39 \
+  --trigger-http \
+  --allow-unauthenticated \
+  --entry-point person_research
+
+gcloud functions deploy market-research \
+  --runtime python39 \
+  --trigger-http \
+  --allow-unauthenticated \
+  --entry-point market_research
 ```
 
 ## Testing the Functions
@@ -71,7 +91,12 @@ curl -X POST https://YOUR_REGION-YOUR_PROJECT_ID.cloudfunctions.net/company-rese
 # Person Research
 curl -X POST https://YOUR_REGION-YOUR_PROJECT_ID.cloudfunctions.net/person-research \
   -H "Content-Type: application/json" \
-  -d '{"person": "John Doe"}'
+  -d '{"person": "John Doe", "company": "Apple"}'
+
+# Market Research
+curl -X POST https://YOUR_REGION-YOUR_PROJECT_ID.cloudfunctions.net/market-research \
+  -H "Content-Type: application/json" \
+  -d '{"market": "AI"}'
 ```
 
 ## Local Development
@@ -92,36 +117,46 @@ export GOOGLE_API_KEY=your_api_key_here
 ```bash
 functions-framework --target company_research
 functions-framework --target person_research
+functions-framework --target market_research
 ```
 
 ## API Endpoints
 
 ### Company Research
-- **URL**: `https://YOUR_REGION-YOUR_PROJECT_ID.cloudfunctions.net/company-research`
-- **Method**: POST
-- **Content-Type**: application/json
-- **Request Body**:
-```json
-{
-    "company": "Company Name"
-}
-```
+- Endpoint: `/company-research`
+- Method: POST
+- Body: `{"company": "Company Name"}`
+- Returns: Detailed company analysis in markdown format
 
 ### Person Research
-- **URL**: `https://YOUR_REGION-YOUR_PROJECT_ID.cloudfunctions.net/person-research`
-- **Method**: POST
-- **Content-Type**: application/json
-- **Request Body**:
-```json
-{
-    "person": "Person Name"
-}
-```
+- Endpoint: `/person-research`
+- Method: POST
+- Body: `{"person": "Person Name", "company": "Company Name"}`
+- Returns: Detailed person analysis in markdown format
 
-## Response Format
+### Market Research
+- Endpoint: `/market-research`
+- Method: POST
+- Body: `{"market": "Market Name"}`
+- Returns: Detailed market analysis in markdown format
 
-```json
-{
-    "research": "Detailed research analysis..."
-}
-``` 
+## Technologies Used
+
+- Frontend:
+  - React
+  - TypeScript
+  - Material-UI
+  - Vite
+
+- Backend:
+  - Python
+  - Google Cloud Functions
+  - Google Gemini AI
+  - Functions Framework
+
+## Deployment
+
+The application is deployed on Google Cloud Platform:
+- Frontend: Google Cloud Storage
+- Backend: Google Cloud Functions
+- AI: Google Gemini AI
